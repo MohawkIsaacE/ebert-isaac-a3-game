@@ -23,7 +23,7 @@ namespace Game10003
             Window.SetSize(600, 700);
             Window.SetTitle("Brick Breaker");
 
-            // Initialize paddle size and location
+            // Initialize paddle size, location, and move speed
             player.width = 40;
             player.height = 15;
             player.x = Window.Width / 2 - player.width / 2;
@@ -45,15 +45,7 @@ namespace Game10003
             Window.ClearBackground(Color.OffWhite);
 
             // Player movement
-            if (Input.IsKeyboardKeyDown(KeyboardInput.A) || Input.IsKeyboardKeyDown(KeyboardInput.Left))
-            {
-                player.moveLeft();
-            }
-
-            if (Input.IsKeyboardKeyDown(KeyboardInput.D) || Input.IsKeyboardKeyDown(KeyboardInput.Right))
-            {
-                player.moveRight();
-            }
+            player.Move();
 
             // Display everything to the screen
             player.Render();
