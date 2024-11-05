@@ -28,6 +28,7 @@ namespace Game10003
             player.height = 15;
             player.x = Window.Width / 2 - player.width / 2;
             player.y = 650;
+            player.speed = 100;
 
             // Initialize ball
             ball.radius = 5;
@@ -43,13 +44,26 @@ namespace Game10003
         {
             Window.ClearBackground(Color.OffWhite);
 
+            // Player movement
+            if (Input.IsKeyboardKeyDown(KeyboardInput.A) || Input.IsKeyboardKeyDown(KeyboardInput.Left))
+            {
+                player.moveLeft();
+            }
+
+            if (Input.IsKeyboardKeyDown(KeyboardInput.D) || Input.IsKeyboardKeyDown(KeyboardInput.Right))
+            {
+                player.moveRight();
+            }
+
             // Display everything to the screen
             player.Render();
             ball.Render();
+            /*
             foreach (Brick b in bricks)
             {
                 b.Render();
             }
+            */
         }
     }
 }
