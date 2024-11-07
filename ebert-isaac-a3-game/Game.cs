@@ -29,11 +29,11 @@ namespace Game10003
             player.height = 15;
             player.x = Window.Width / 2 - player.width / 2;
             player.y = 650;
-            player.speed = 100;
+            player.speed = 150;
 
             // Initialize ball
             ball.radius = 5;
-            ball.speed = 100;
+            ball.speed = 150;
             ball.position = new Vector2(Window.Width / 2, Window.Height / 2);
             ball.direction = Random.Direction();
             Console.WriteLine($"{ball.direction.X}x {ball.direction.Y}y");
@@ -65,6 +65,7 @@ namespace Game10003
             
             for(int i = 0; i < bricks.Length; i++)
             {
+                bricks[i].IsHit(ball);
                 bricks[i].Render();
             }
 

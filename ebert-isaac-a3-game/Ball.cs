@@ -34,15 +34,15 @@ public class Ball
 
         // Brick collision detection
 
-        // Ricochet the ball if it hits the sides or the top of the window or the paddle
-        if (isLeftOfWindow || isRightOfWindow || isWithinPaddleX && isWithinPaddle)
+        // Ricochet the ball if it hits the sides or the top of the window, the paddle, or a brick
+        if (isLeftOfWindow || isRightOfWindow || (isWithinPaddleX && position.Y > paddle.playerTopEdge && position.Y < paddle.playerBottomEdge))
         {
             direction.X = -direction.X;
             if (direction.X > 0) position.X += 1;
             if (direction.X < 0) position.X -= 1;
         }
 
-        if (isAboveWindow || (isWithinPaddle && !isWithinPaddleX))
+        if (isAboveWindow || (isWithinPaddle && !isWithinPaddleX) || (isWithinPaddleY && isWithinPaddle))
         {
             direction.Y = -direction.Y;
         }
