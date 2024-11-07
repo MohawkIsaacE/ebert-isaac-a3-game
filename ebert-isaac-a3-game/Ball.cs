@@ -42,7 +42,7 @@ public class Ball
             if (direction.X < 0) position.X -= 1;
         }
 
-        if (isAboveWindow || (isWithinPaddleY && isWithinPaddle && direction.Y > 0))
+        if (isAboveWindow || (isWithinPaddle && !isWithinPaddleX))
         {
             direction.Y = -direction.Y;
         }

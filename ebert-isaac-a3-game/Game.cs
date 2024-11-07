@@ -33,7 +33,7 @@ namespace Game10003
 
             // Initialize ball
             ball.radius = 5;
-            ball.speed = 200;
+            ball.speed = 100;
             ball.position = new Vector2(Window.Width / 2, Window.Height / 2);
             ball.direction = Random.Direction();
             Console.WriteLine($"{ball.direction.X}x {ball.direction.Y}y");
