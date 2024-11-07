@@ -10,7 +10,7 @@ public class Paddle
 	public int width, height;
 	public int speed;
 
-    float playerLeftEdge, playerRightEdge, playerTopEdge, playerBottomEdge;
+    public float playerLeftEdge, playerRightEdge, playerTopEdge, playerBottomEdge;
     bool isLeftOfWindow, isRightOfWindow, isAboveWindow, isBelowWindow;
 
     /// <summary>
