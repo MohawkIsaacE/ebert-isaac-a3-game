@@ -13,7 +13,7 @@ namespace Game10003
         // Place your variables here:
         Paddle player = new Paddle();
         Ball ball = new Ball();
-        Brick[] bricks = new Brick[100];
+        Brick[] bricks = new Brick[10];
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -32,9 +32,14 @@ namespace Game10003
 
             // Initialize ball
             ball.radius = 5;
+            ball.speed = 100;
             ball.position = new Vector2(Window.Width / 2, Window.Height / 2);
 
             // Initialize bricks
+            for(int i = 0; i < bricks.Length; i++)
+            {
+                bricks[i] = new Brick();
+            }
         }
 
         /// <summary>
@@ -46,16 +51,18 @@ namespace Game10003
 
             // Player movement
             player.Move();
+            ball.Move();
 
             // Display everything to the screen
             player.Render();
             ball.Render();
-            /*
-            foreach (Brick b in bricks)
+            
+            for(int i = 0; i < bricks.Length; i++)
             {
-                b.Render();
+                bricks[i].position = new Vector2(200, 200);
+                bricks[i].Render();
             }
-            */
+
         }
     }
 }
