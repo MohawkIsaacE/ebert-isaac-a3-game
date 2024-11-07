@@ -8,33 +8,36 @@ public class Ball
     public float radius;
     public Vector2 position;
     public int speed;
+    public Vector2 direction;
 
     bool isLeftOfWindow, isRightOfWindow, isAboveWindow, isBelowWindow;
 
     public void Render()
     {
-        Draw.FillColor = Color.Red;
+        Draw.FillColor = Color.Green;
         Draw.Circle(position, radius);
     }
 
     public void Move()
     {
         // Window collision detection
-        isLeftOfWindow = radius <= 0;
-        isRightOfWindow = radius >= Window.Width;
-        isAboveWindow = radius <= 0;
-        isBelowWindow = radius >= Window.Height;
+        isLeftOfWindow = position.X - radius <= 0;
+        isRightOfWindow = position.X + radius >= Window.Width;
+        isAboveWindow = position.Y - radius <= 0;
+        isBelowWindow = position.Y + radius >= Window.Height;
 
         // Ricochet the ball if it hits the sides or the top of the window
         if (isLeftOfWindow || isRightOfWindow)
         {
-            position.X = -position.X;
+            direction.X = -direction.X;
         }
 
         if (isAboveWindow)
         {
-            position.Y = -position.Y;
+            direction.Y = -direction.Y;
         }
 
+        position.X += direction.X * speed * Time.DeltaTime;
+        position.Y += direction.Y * speed * Time.DeltaTime;
     }
 }

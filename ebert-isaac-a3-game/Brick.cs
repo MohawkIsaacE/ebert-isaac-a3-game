@@ -14,7 +14,7 @@ public class Brick
 	} */
 	public void Render()
 	{
-        Draw.FillColor = Color.White;
+        Draw.FillColor = Color.Red;
         Draw.Rectangle(position.X, position.Y, 50, 20);
     }
 }

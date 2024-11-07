@@ -18,7 +18,7 @@ public class Paddle
     /// </summary>
     public void Render()
 	{
-		Draw.FillColor = Color.Blue;
+		Draw.FillColor = new Color(100, 100, 100);
 		Draw.Rectangle(x, y, width, height);
     }
 
