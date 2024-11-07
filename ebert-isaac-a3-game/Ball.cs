@@ -32,23 +32,57 @@ public class Ball
         isWithinPaddleY = position.Y + radius > paddle.playerTopEdge && position.Y - radius < paddle.playerBottomEdge;
         isWithinPaddle = isWithinPaddleX && isWithinPaddleY;
 
-        // Brick collision detection
-
-        // Ricochet the ball if it hits the sides or the top of the window, the paddle, or a brick
+        // Ricochet the ball if it hits the sides or the top of the window or the paddle
         if (isLeftOfWindow || isRightOfWindow || (isWithinPaddleX && position.Y > paddle.playerTopEdge && position.Y < paddle.playerBottomEdge))
         {
-            direction.X = -direction.X;
-            if (direction.X > 0) position.X += 1;
-            if (direction.X < 0) position.X -= 1;
+            InvertX();
         }
 
         if (isAboveWindow || (isWithinPaddle && !isWithinPaddleX) || (isWithinPaddleY && isWithinPaddle))
         {
-            direction.Y = -direction.Y;
+            InvertY();
         }
 
+        // Update position
         position.X += direction.X * speed * Time.DeltaTime;
         position.Y += direction.Y * speed * Time.DeltaTime;
         
+    }
+
+    private void InvertY()
+    {
+        direction.Y = -direction.Y;
+        if (direction.Y > 0) position.Y += 1;
+        if (direction.Y < 0) position.Y -= 1;
+    }
+
+    private void InvertX()
+    {
+        direction.X = -direction.X;
+        if (direction.X > 0) position.X += 2;
+        if (direction.X < 0) position.X -= 2;
+    }
+
+    /// <summary>
+    ///     Ricochets the ball when it hits a brick
+    /// </summary>
+    public void BrickCollide(Brick brick)
+    {
+        // Detect if the ball is in the brick
+        bool isWithinBrickX = position.X + radius > brick.leftSide && position.X - radius < brick.rightSide;
+        bool isWithinBrickY = position.Y + radius > brick.top && position.Y - radius < brick.bottom;
+        bool isWithinBrick = isWithinBrickX && isWithinBrickY;
+
+        // Ricochet if ball hits brick on left or right side
+        if (isWithinBrickX && isWithinBrick)
+        {
+            InvertX();
+        }
+
+        // Ricochet if ball hits brick on top or bottom
+        if (isWithinBrickY && isWithinBrick)
+        {
+            InvertY();
+        }
     }
 }

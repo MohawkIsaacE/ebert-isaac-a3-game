@@ -25,7 +25,7 @@ namespace Game10003
             Window.SetTitle("Brick Breaker");
 
             // Initialize paddle size, location, and move speed
-            player.width = 40;
+            player.width = 55;
             player.height = 15;
             player.x = Window.Width / 2 - player.width / 2;
             player.y = 650;
@@ -44,7 +44,7 @@ namespace Game10003
                 // Initialization so there's no null error
                 bricks[i] = new Brick();
                 // Give the bricks their own position
-                bricks[i].position = new Vector2(brickX, 200);
+                bricks[i].SetPosition(brickX, 200);
                 brickX += 50;
             }
         }
@@ -65,7 +65,12 @@ namespace Game10003
             
             for(int i = 0; i < bricks.Length; i++)
             {
-                bricks[i].IsHit(ball);
+                // Ball on brick collision detection
+                if (bricks[i].IsHit(ball))
+                {
+                    ball.BrickCollide(bricks[i]);
+                    bricks[i].UpdatePosition();
+                }
                 bricks[i].Render();
             }
 
