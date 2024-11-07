@@ -74,13 +74,13 @@ public class Ball
         bool isWithinBrick = isWithinBrickX && isWithinBrickY;
 
         // Ricochet if ball hits brick on left or right side
-        if (isWithinBrickX && isWithinBrick)
+        if (isWithinBrick && position.Y < brick.bottom && position.Y > brick.top)
         {
             InvertX();
         }
 
         // Ricochet if ball hits brick on top or bottom
-        if (isWithinBrickY && isWithinBrick)
+        if (isWithinBrick && position.X < brick.rightSide && position.X > brick.leftSide)
         {
             InvertY();
         }
