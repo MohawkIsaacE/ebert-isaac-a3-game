@@ -59,8 +59,8 @@ public class Ball
     private void InvertX()
     {
         direction.X = -direction.X;
-        if (direction.X > 0) position.X += 2;
-        if (direction.X < 0) position.X -= 2;
+        if (direction.X > 0) position.X += 1;
+        if (direction.X < 0) position.X -= 1;
     }
 
     /// <summary>

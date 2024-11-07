@@ -13,8 +13,7 @@ namespace Game10003
         // Place your variables here:
         Paddle player = new Paddle();
         Ball ball = new Ball();
-        Brick[] bricks = new Brick[10];
-        int brickX = 50;
+        Brick[] bricks = new Brick[60];
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -25,26 +24,35 @@ namespace Game10003
             Window.SetTitle("Brick Breaker");
 
             // Initialize paddle size, location, and move speed
-            player.width = 55;
-            player.height = 15;
+            player.width = 62;
+            player.height = 18;
             player.x = Window.Width / 2 - player.width / 2;
             player.y = 650;
-            player.speed = 150;
+            player.speed = 200;
 
             // Initialize ball
-            ball.radius = 5;
-            ball.speed = 150;
+            ball.radius = 7;
+            ball.speed = 200;
             ball.position = new Vector2(Window.Width / 2, Window.Height / 2);
             ball.direction = Random.Direction();
             Console.WriteLine($"{ball.direction.X}x {ball.direction.Y}y");
 
+            int brickX = 50;
+            int brickY = 10;
             // Initialize bricks
-            for(int i = 0; i < bricks.Length; i++)
+            for (int i = 0; i < bricks.Length; i++)
             {
                 // Initialization so there's no null error
                 bricks[i] = new Brick();
+                // Move to the next row
+                if (i % 10 == 0)
+                {
+                    brickY += 20;
+                    brickX = 50;
+                }
                 // Give the bricks their own position
-                bricks[i].SetPosition(brickX, 200);
+                bricks[i].SetPosition(brickX, brickY);
+                // Move to the next column
                 brickX += 50;
             }
         }
