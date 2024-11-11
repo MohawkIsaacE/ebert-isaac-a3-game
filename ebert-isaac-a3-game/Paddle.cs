@@ -6,7 +6,7 @@ using System.Numerics;
 namespace Game10003;
 public class Paddle
 {
-	public float x, y;
+	public float x, y; // Position
 	public int width, height;
 	public int speed;
 

@@ -9,16 +9,24 @@ public class Ball
     public Vector2 position;
     public int speed;
     public Vector2 direction;
+    public int lives;
+    public bool isActive;
 
     bool isLeftOfWindow, isRightOfWindow, isAboveWindow, isBelowWindow;
     bool isWithinPaddleX, isWithinPaddleY, isWithinPaddle;
 
+    /// <summary>
+    ///     Displays the ball to the screen
+    /// </summary>
     public void Render()
     {
         Draw.FillColor = Color.Green;
         Draw.Circle(position, radius);
     }
 
+    /// <summary>
+    ///     Handles the movement of the ball and wall and paddle collision
+    /// </summary>
     public void Move(Paddle paddle, Brick[] bricks)
     {
         // Window collision detection
@@ -32,23 +40,56 @@ public class Ball
         isWithinPaddleY = position.Y + radius > paddle.playerTopEdge && position.Y - radius < paddle.playerBottomEdge;
         isWithinPaddle = isWithinPaddleX && isWithinPaddleY;
 
-        // Ricochet the ball if it hits the sides or the top of the window or the paddle
+        // Ricochet the ball if it hits the sides of the window or paddle
         if (isLeftOfWindow || isRightOfWindow || (isWithinPaddleX && position.Y > paddle.playerTopEdge && position.Y < paddle.playerBottomEdge))
         {
             InvertX();
         }
 
-        if (isAboveWindow || (isWithinPaddle && !isWithinPaddleX) || (isWithinPaddleY && isWithinPaddle))
+        // Randomize the direction of the ball when it hits the paddle
+        if ((isWithinPaddle && !isWithinPaddleX) || (isWithinPaddleY && isWithinPaddle))
+        {
+            direction = Random.Direction();
+            direction.Y = -1;
+            position.Y -= radius + 1;
+        }
+
+        // Ricochets the ball when it hits the top of the window
+        if (isAboveWindow)
         {
             InvertY();
         }
 
+        // Starts the game when the player presses the spacebar
+        if (Input.IsKeyboardKeyPressed(KeyboardInput.Space)) isActive = true;
+
+        // If ball goes off screen, reset the postion and take away a life
+        if (isBelowWindow)
+        {
+            isActive = false;
+            lives--;
+        }
+
         // Update position
-        position.X += direction.X * speed * Time.DeltaTime;
-        position.Y += direction.Y * speed * Time.DeltaTime;
+        // Detect if the player has started playing yet
+        if (isActive)
+        {
+            // Moves the ball
+            position.X += direction.X * speed * Time.DeltaTime;
+            position.Y += direction.Y * speed * Time.DeltaTime;
+        }
+        else
+        {
+            // Keeps the ball on top of the paddle
+            position.X = paddle.playerLeftEdge + paddle.width / 2;
+            position.Y = paddle.playerTopEdge - radius;
+        }
         
     }
 
+    /// <summary>
+    ///     Inverts the Y direction of the ball and offsets the ball so it doesn't get stuck in something
+    /// </summary>
     private void InvertY()
     {
         direction.Y = -direction.Y;
@@ -56,6 +97,9 @@ public class Ball
         if (direction.Y < 0) position.Y -= 1;
     }
 
+    /// <summary>
+    ///     Inverts the X direction of the ball and offsets the ball so it doesn't get stuck in something
+    /// </summary>
     private void InvertX()
     {
         direction.X = -direction.X;
@@ -74,13 +118,13 @@ public class Ball
         bool isWithinBrick = isWithinBrickX && isWithinBrickY;
 
         // Ricochet if ball hits brick on left or right side
-        if (isWithinBrick && position.Y < brick.bottom && position.Y > brick.top)
+        if (isWithinBrick && position.Y + radius < brick.bottom && position.Y + radius > brick.top)
         {
             InvertX();
         }
 
         // Ricochet if ball hits brick on top or bottom
-        if (isWithinBrick && position.X < brick.rightSide && position.X > brick.leftSide)
+        if (isWithinBrick && position.X + radius < brick.rightSide && position.X + radius > brick.leftSide)
         {
             InvertY();
         }

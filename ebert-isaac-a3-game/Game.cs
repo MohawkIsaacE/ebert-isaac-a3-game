@@ -14,6 +14,7 @@ namespace Game10003
         Paddle player = new Paddle();
         Ball ball = new Ball();
         Brick[] bricks = new Brick[60];
+        int score;
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -22,6 +23,9 @@ namespace Game10003
         {
             Window.SetSize(600, 700);
             Window.SetTitle("Brick Breaker");
+
+            // Reset score
+            score = 0;
 
             // Initialize paddle size, location, and move speed
             player.width = 62;
@@ -33,7 +37,7 @@ namespace Game10003
             // Initialize ball
             ball.radius = 7;
             ball.speed = 200;
-            ball.position = new Vector2(Window.Width / 2, Window.Height / 2);
+            ball.isActive = false;
             ball.direction = Random.Direction();
             Console.WriteLine($"{ball.direction.X}x {ball.direction.Y}y");
 
@@ -64,25 +68,30 @@ namespace Game10003
         {
             Window.ClearBackground(Color.OffWhite);
 
-            // Player movement
-            player.Move();
-            ball.Move(player, bricks);
-
-            // Display everything to the screen
-            player.Render();
-            
-            for(int i = 0; i < bricks.Length; i++)
+            // Check if the game should continue playing
+            if (ball.lives > 0)
             {
-                // Ball on brick collision detection
-                if (bricks[i].IsHit(ball))
-                {
-                    ball.BrickCollide(bricks[i]);
-                    bricks[i].UpdatePosition();
-                }
-                bricks[i].Render();
-            }
+                // Player movement
+                player.Move();
+                ball.Move(player, bricks);
 
-            ball.Render();
+                // Display everything to the screen
+                player.Render();
+
+                for (int i = 0; i < bricks.Length; i++)
+                {
+                    // Ball on brick collision detection
+                    if (bricks[i].IsHit(ball))
+                    {
+                        ball.BrickCollide(bricks[i]);
+                        bricks[i].UpdatePosition();
+                        score += 100;
+                    }
+                    bricks[i].Render();
+                }
+
+                ball.Render();
+            }
         }
     }
 }
