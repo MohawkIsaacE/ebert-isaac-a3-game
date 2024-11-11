@@ -115,6 +115,9 @@ namespace Game10003
                 // Say how to restart
                 Text.Size = 35;
                 Text.Draw("Press Space to Play Again", 65, Window.Height / 2 + 50);
+
+                // Restart game if user presses space
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space)) Setup();
             }
         }
     }
