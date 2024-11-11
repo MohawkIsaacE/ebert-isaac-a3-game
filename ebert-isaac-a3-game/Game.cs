@@ -75,6 +75,13 @@ namespace Game10003
                 // Player movement
                 player.Move();
                 ball.Move(player, bricks);
+                
+                // Display how to start playing if the ball is not in motion
+                if (!ball.isActive)
+                {
+                    Text.Size = 50;
+                    Text.Draw("Press Space to play", 50, Window.Height / 2 - 50);
+                }
 
                 // Display everything to the screen
                 player.Render();
@@ -86,7 +93,7 @@ namespace Game10003
                     {
                         ball.BrickCollide(bricks[i]);
                         bricks[i].UpdatePosition();
-                        score += 100;
+                        score += 50;
                     }
                     bricks[i].Render();
                 }
@@ -98,6 +105,16 @@ namespace Game10003
                 Text.Draw(scoreText + score, 0, Window.Height - 25);
                 // Display lives
                 Text.Draw(livesText + ball.lives, Window.Width - 110, Window.Height - 25);
+            }
+            else // When the lives run out (game ends)
+            {
+                // Display final score
+                Text.Size = 60;
+                Text.Draw($"Final Score: {score:00000}", 10, Window.Height / 2 - 60);
+
+                // Say how to restart
+                Text.Size = 35;
+                Text.Draw("Press Space to Play Again", 65, Window.Height / 2 + 50);
             }
         }
     }
