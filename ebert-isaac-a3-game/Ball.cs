@@ -61,7 +61,11 @@ public class Ball
         }
 
         // Starts the game when the player presses the spacebar
-        if (Input.IsKeyboardKeyPressed(KeyboardInput.Space)) isActive = true;
+        if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
+        {
+            isActive = true;
+            direction.Y = 1;
+        }
 
         // If ball goes off screen, reset the postion and take away a life
         if (isBelowWindow)
@@ -82,7 +86,7 @@ public class Ball
         {
             // Keeps the ball on top of the paddle
             position.X = paddle.playerLeftEdge + paddle.width / 2;
-            position.Y = paddle.playerTopEdge - radius;
+            position.Y = paddle.playerTopEdge - (radius + 1); // Slightly above the paddle
         }
         
     }

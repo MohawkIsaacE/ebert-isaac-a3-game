@@ -15,6 +15,7 @@ namespace Game10003
         Ball ball = new Ball();
         Brick[] bricks = new Brick[60];
         int score;
+        string scoreText = "Score: ", livesText = "Lives: ";
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -37,9 +38,9 @@ namespace Game10003
             // Initialize ball
             ball.radius = 7;
             ball.speed = 200;
+            ball.lives = 3;
             ball.isActive = false;
-            ball.direction = Random.Direction();
-            Console.WriteLine($"{ball.direction.X}x {ball.direction.Y}y");
+            //ball.direction = Random.Direction();
 
             int brickX = 50;
             int brickY = 10;
@@ -91,6 +92,12 @@ namespace Game10003
                 }
 
                 ball.Render();
+
+                // Display score
+                Text.Size = 25;
+                Text.Draw(scoreText + score, 0, Window.Height - 25);
+                // Display lives
+                Text.Draw(livesText + ball.lives, Window.Width - 110, Window.Height - 25);
             }
         }
     }
