@@ -79,8 +79,9 @@ public class Ball
         if (isActive)
         {
             // Moves the ball
-            position.X += direction.X * speed * Time.DeltaTime;
-            position.Y += direction.Y * speed * Time.DeltaTime;
+            //position.X += direction.X * speed * Time.DeltaTime;
+            //position.Y += direction.Y * speed * Time.DeltaTime;
+            position += Vector2.Normalize(direction) * speed * Time.DeltaTime;
         }
         else
         {
