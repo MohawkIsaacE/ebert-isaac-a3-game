@@ -9,6 +9,9 @@ Controls: <br>
 - Press space to start playing <br>
 - Use A/D or left/right arrows to move the paddle<br>
 <br>
+Cheats:<br>
+- Press 'G' to increase the level<br>
+<br>
 Known issues:<br>
 - Ball collision (all of it)<br>
 - Ball speed is not normalized
