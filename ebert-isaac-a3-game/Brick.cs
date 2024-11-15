@@ -8,7 +8,7 @@ public class Brick
 	public Vector2 position;
 	int width = 50;
 	int height = 20;
-	public Color color = Color.Red;
+	public Color color;
 
 	public float leftSide, rightSide, top, bottom;
 

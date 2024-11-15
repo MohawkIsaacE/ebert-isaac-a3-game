@@ -17,6 +17,7 @@ namespace Game10003
         int bricksActive;
         int score, level;
         string scoreText = "Score: ", livesText = "Lives: ", levelText = "Level: ";
+        Color brickColour;
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -45,10 +46,12 @@ namespace Game10003
             //ball.direction = Random.Direction();
 
             // Initialize bricks
+            brickColour = Random.Color();
             for (int i = 0; i < bricks.Length; i++)
             {
                 // Initialization so there's no null error
                 bricks[i] = new Brick();
+                bricks[i].color = brickColour;
             }
 
             // Resets bricks
@@ -98,6 +101,7 @@ namespace Game10003
 
                     bricksActive = bricks.Length;
                     // Resets bricks
+                    brickColour = Random.Color();
                     SpawnBricks();
                 }
 
@@ -113,7 +117,7 @@ namespace Game10003
                 if (!ball.isActive)
                 {
                     Text.Size = 50;
-                    Text.Draw("Press Space to play", 50, Window.Height / 2 - 50);
+                    Text.Draw("Press Space to play", 50, Window.Height / 2);
                 }
 
                 // Display score
@@ -149,6 +153,7 @@ namespace Game10003
 
             for (int i = 0; i < bricks.Length; i++)
             {
+                bricks[i].color = brickColour;
                 // Move to the next row
                 if (i % 10 == 0)
                 {
